@@ -23,11 +23,20 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+Pipe line:
+1. Convert to grayscale image for the following processing
+2. Apply Gaussian smoothing
+3. Apply Canny transform to detect edges
+4. Set region of interest
+5. Apply Hough transform to detect lanes
+6. Merge lines with the original image
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+In order to change the line segments to full solid lines, I did the following:
+1. Separate line segments by slope (left lane has positive slope and right lane has negative slope). During the separation, I set a threshold for the slope to extract non-lane lines (noise).
+2. Use numply polyfit function to find the slope and intersection for both left and right lane.
+3. From y_top & y_bottom coordinate, calculate the x top and bottom coordinates for both left and right lane.
+4. Draw the lanes seperately by bottom and top x,y coordinates
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
 
 ![alt text][image1]
 
@@ -35,13 +44,12 @@ If you'd like to include images to show how the pipeline works, here is how to i
 ### 2. Identify potential shortcomings with your current pipeline
 
 
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
+Potential shortcoming:
+1. Need to change code every time when input/output a different image/video
+2. Need to change region of interest for different image/video
+3. Need to change Hough transofrm parameters for different image/video
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+A possible improvement would be before processing images/videos, modify them so they share a more general info.
